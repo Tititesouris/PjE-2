@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("serial")
 public class MTPicture extends MTComponent {
 
 	private Image img;
