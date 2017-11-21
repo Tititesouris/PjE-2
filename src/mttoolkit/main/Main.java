@@ -6,56 +6,51 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import mttoolkit.mygeom.Point2;
+import mttoolkit.widget.MTPicture;
 import mttoolkit.widget.MTSurface;
 
 public class Main {
-	
-	public static void createGUI() {
-		JFrame frame = new JFrame();
-		frame.setPreferredSize(new Dimension(840, 620));
-		frame.setLayout(new FlowLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		MTSurface surface = new MTSurface();
-		surface.setPreferredSize(new Dimension(800, 600));
-		surface.setBackground(new Color(255, 255, 255));
-		surface.setBorder(new LineBorder(new Color(0, 0, 0)));
+    private static void createGUI() {
+        JFrame frame = new JFrame();
+        frame.setPreferredSize(new Dimension(840, 620));
+        frame.setLayout(new FlowLayout());
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		/*surface.addChangedSideListener(new ChangedSideListener() {
-			@Override
-			public void changedSidePerformed(ChangedSideEvent evt) {
-				System.out.println("curseur d'id: " + evt.getID() + " est � " + (evt.getSide()));
-			}
-		});*/
+        MTSurface surface = new MTSurface();
+        surface.setPreferredSize(new Dimension(800, 600));
+        surface.setBackground(new Color(255, 255, 255));
+        surface.setBorder(new LineBorder(new Color(0, 0, 0)));
+        MTPicture picture = new MTPicture(new Point2(50, 50),  new Point2(300, 100), "testimg.png");
+        surface.add(picture);
 
-		frame.add(surface);
+        frame.add(surface);
 
-		JButton button = new JButton("Display Cursor");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				surface.setCursorsVisible(surface.areCursorsVisible() ? false : true);
-			}
-		});
+        JButton button = new JButton("Display Cursor");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                surface.setCursorsVisible(!surface.areCursorsVisible());
+            }
+        });
 
-		frame.add(button);
+        frame.add(button);
 
-		frame.pack();
-		frame.setVisible(true);
-	}
+        frame.pack();
+        frame.setVisible(true);
+    }
 
-	public static void main(String args[]) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				createGUI();
-			}
-		});
-		System.out.println("ok");
-	}
-	
+    public static void main(String args[]) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                createGUI();
+            }
+        });
+        System.out.println("ok");
+    }
+
 }

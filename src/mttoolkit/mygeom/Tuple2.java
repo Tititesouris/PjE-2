@@ -2,77 +2,83 @@ package mttoolkit.mygeom;
 
 
 public class Tuple2 {
-	private double x,y;
-	
-	public Tuple2() {
-		x=0;y=0;
-	}
 
-	public Tuple2(double xx,double yy) {
-		x=xx;y=yy;
-	}
-	
-	public Tuple2(Tuple2 a) {
-		x=a.x;y=a.y;
-	}
-	
-	
-	public Tuple2 add(Tuple2 a) {
-		x+=a.x;
-		y+=a.y;
-		return this;
-	}
+    private double x, y;
 
-  public Tuple2 sub(Tuple2 a) {
-  	x-=a.x;
-   	y-=a.y;
-   	return this;
-  }
+    public Tuple2() {
+        x = 0;
+        y = 0;
+    }
 
-  public Tuple2 add(Tuple2 a,Tuple2 b) {
-   	x=a.x+b.x;
-   	y=a.y+b.y;
-   	return this;
-   }
-    
-   public void set(Tuple2 a) {
-   	x=a.x;y=a.y;
-   }
-    
-	public void set(Tuple2 a,Tuple2 b) {
-		set(b);
-		sub(a);
-	}
+    public Tuple2(double xx, double yy) {
+        x = xx;
+        y = yy;
+    }
 
-	/// copy
+    public Tuple2(Tuple2 a) {
+        x = a.x;
+        y = a.y;
+    }
+
+
+    public Tuple2 add(Tuple2 a) {
+        x += a.x;
+        y += a.y;
+        return this;
+    }
+
+    public Tuple2 sub(Tuple2 a) {
+        x -= a.x;
+        y -= a.y;
+        return this;
+    }
+
+    public Tuple2 add(Tuple2 a, Tuple2 b) {
+        x = a.x + b.x;
+        y = a.y + b.y;
+        return this;
+    }
+
+    public void set(Tuple2 a) {
+        x = a.x;
+        y = a.y;
+    }
+
+    public void set(Tuple2 a, Tuple2 b) {
+        set(b);
+        sub(a);
+    }
+
+    /// copy
     public void copy(Tuple2 a) {
-    	a.x=x;a.y=y;
+        a.x = x;
+        a.y = y;
     }
-    
+
     public double getX() {
-    	return x;
+        return x;
     }
-    
+
     public double getY() {
-    	return y;
+        return y;
     }
-    
-    public void set(double xx,double yy) {
-    	x=xx;
-    	y=yy;
+
+    public void set(double xx, double yy) {
+        x = xx;
+        y = yy;
     }
-    
+
     public void setX(double xx) {
-    	x=xx;
+        x = xx;
     }
-    
+
     public void setY(double yy) {
-    	y=yy;
+        y = yy;
     }
-    
-    /// @brief compatibilité avec cout (affiche les coordonnées).
+
+    /// @brief compatibilitï¿½ avec cout (affiche les coordonnï¿½es).
     public String toString() {
-    	return "("+x+","+y+")";
+        return "(" + x + "," + y + ")";
     }
 
 

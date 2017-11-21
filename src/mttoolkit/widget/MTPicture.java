@@ -38,7 +38,7 @@ public class MTPicture extends MTComponent {
 
     @Override
     public void draw(Graphics2D g) {
-        g.drawImage(img, (int) (position.getX() - (size.getX() / 2)), (int) (position.getY() - (size.getY() / 2)), (int) size.getX(), (int) size.getY(),
+        g.drawImage(img, (int) position.getX(), (int) position.getY(), (int) size.getX(), (int) size.getY(),
                 null);
         g.setColor(Color.DARK_GRAY);
         g.drawRoundRect((int) position.getX(), (int) position.getY(), (int) size.getX(), (int) size.getY(), 10, 10);

@@ -13,36 +13,40 @@ public class MTContainer extends MTComponent {
 
     private Point2 size;
 
-	private List<MTComponent> components = new ArrayList<>();
-	
-	public MTContainer(Point2 size)  {
-		this.size = size;
-	}
+    private List<MTComponent> components = new ArrayList<>();
 
-	public MTComponent whichIs(Point2 p) {
-		for (MTComponent mtComponent : components) {
-			if (mtComponent.isInside(p)) {
-				return mtComponent;
-			}
-		}
-		return null;
-	}
+    public MTContainer(Point2 size) {
+        this.size = size;
+    }
 
-	@Override
-	public boolean isInside(Point2 p) {
+    public void addComponent(MTComponent component) {
+        components.add(component);
+    }
+
+    public MTComponent whichIs(Point2 p) {
         for (MTComponent mtComponent : components) {
-            if (mtComponent.isInside(p)){
+            if (mtComponent.isInside(p)) {
+                return mtComponent;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isInside(Point2 p) {
+        for (MTComponent mtComponent : components) {
+            if (mtComponent.isInside(p)) {
                 return true;
             }
         }
         return false;
-	}
-	
-	@Override
-	public void draw(Graphics2D g) {
-		for (MTComponent mtComponent : components) {
-			mtComponent.draw(g);
-		}
-	}
-	
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        for (MTComponent mtComponent : components) {
+            mtComponent.draw(g);
+        }
+    }
+
 }

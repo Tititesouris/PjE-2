@@ -8,30 +8,30 @@ import mttoolkit.mygeom.Path;
 import mttoolkit.mygeom.Point2;
 
 public class BlobQueue {
-	
-	private Map<Integer, Path> cursor = new HashMap<>();
 
-	public void addBlob(int id, Point2 p) {
-		cursor.put(id, new Path(id, p));
-	}
+    private Map<Integer, Path> cursor = new HashMap<>();
 
-	public void updateBlob(int id, Point2 p) {
-		cursor.get(id).add(p);
-	}
+    public void addBlob(int id, Point2 p) {
+        cursor.put(id, new Path(id, p));
+    }
 
-	public void removeBlob(int id) {
-		cursor.remove(id);
-	}
-	
-	public boolean checkID(int id) {
-		return cursor.containsKey(id);
-	}
+    public void updateBlob(int id, Point2 p) {
+        cursor.get(id).add(p);
+    }
 
-	public void draw(Graphics2D g2, boolean cursorsVisible) {
-		for (Path p : cursor.values()) {
-			p.draw(g2, cursorsVisible);
-		}
-		
-	}
+    public void removeBlob(int id) {
+        cursor.remove(id);
+    }
+
+    public boolean checkID(int id) {
+        return cursor.containsKey(id);
+    }
+
+    public void draw(Graphics2D g2, boolean cursorsVisible) {
+        for (Path p : cursor.values()) {
+            p.draw(g2, cursorsVisible);
+        }
+
+    }
 
 }
