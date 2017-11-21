@@ -1,8 +1,9 @@
 package tuio;
 
 import TUIO.*;
-import mygeom.Point2;
-import widget.MTSurface;
+import mttoolkit.mygeom.Point2;
+import mttoolkit.widget.MTSurface;
+
 
 public class MTedt implements TuioListener {
 

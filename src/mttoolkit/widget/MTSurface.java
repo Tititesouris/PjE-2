@@ -12,7 +12,7 @@ import event.ChangedSideEvent;
 import event.ChangedSideListener;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.tuio.MTEdt;
-import mygeom.Path;
+import mttoolkit.mygeom.Path;
 
 public class MTSurface extends JPanel {
 	
@@ -26,7 +26,7 @@ public class MTSurface extends JPanel {
 	public MTSurface() {
 		super();
 		this.mtedt = new MTEdt(this);
-		this.container = new MTContainer(new Point2(0, 0), new Point2(getWidth(), getHeight()));
+		this.container = new MTContainer(new Point2(getWidth(), getHeight()));
 		this.componentMap = new ComponentMap();
 	}
 	
@@ -39,6 +39,16 @@ public class MTSurface extends JPanel {
 		if (component != null) {
 			componentMap.addBlob(component, id, p);
 		}
+	}
+	
+	public void updateCursor(int cursorID, Point2 point2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void removeCursor(int cursorID, Point2 point2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public boolean areCursorsVisible() {
