@@ -1,5 +1,7 @@
 package mttoolkit.widget;
 
+import mttoolkit.event.DiscreteEvent;
+import mttoolkit.event.DiscreteEventListener;
 import mttoolkit.mygeom.Point2;
 
 import java.awt.Color;
@@ -29,6 +31,13 @@ public class MTPicture extends MTComponent {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        addDiscreteEventListener(new DiscreteEventListener() {
+            @Override
+            public void gesturePerformed(DiscreteEvent event) {
+                System.out.println("CLICKED ON IMAGE " + position.getX());
+                click();
+            }
+        });
     }
 
     @Override

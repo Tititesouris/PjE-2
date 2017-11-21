@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import mttoolkit.event.DiscreteEvent;
+import mttoolkit.event.DiscreteEventListener;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.widget.MTPicture;
 import mttoolkit.widget.MTSurface;
@@ -26,7 +28,9 @@ public class Main {
         surface.setBackground(new Color(255, 255, 255));
         surface.setBorder(new LineBorder(new Color(0, 0, 0)));
         MTPicture picture = new MTPicture(new Point2(50, 50),  new Point2(300, 100), "testimg.png");
+        MTPicture picture2 = new MTPicture(new Point2(100, 80),  new Point2(50, 150), "testimg.png");
         surface.add(picture);
+        surface.add(picture2);
 
         frame.add(surface);
 

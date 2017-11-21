@@ -26,10 +26,18 @@ public class MTContainer extends MTComponent {
     public MTComponent whichIs(Point2 p) {
         for (MTComponent mtComponent : components) {
             if (mtComponent.isInside(p)) {
+                mtComponent.setContainer(this);
                 return mtComponent;
             }
         }
         return null;
+    }
+
+    public void select(MTComponent component) {
+        if (components.contains(component)) {
+            components.remove(component);
+            components.add(0, component);
+        }
     }
 
     @Override

@@ -39,11 +39,7 @@ public class MTSurface extends JPanel {
     public synchronized void addCursor(int id, Point2 p) {
         MTComponent component = container.whichIs(p);
         if (component != null) {
-            System.out.println("ON IMAGE");
             componentMap.addBlob(component, id, p);
-        }
-        else {
-            componentMap.addBlob(container, id, p);
         }
         this.repaint();
     }
