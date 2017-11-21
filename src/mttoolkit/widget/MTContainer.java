@@ -10,13 +10,12 @@ import mttoolkit.mygeom.Point2;
 
 @SuppressWarnings("serial")
 public class MTContainer extends MTComponent {
-	
-	public Point2 position, size;
+
+    private Point2 size;
 
 	private List<MTComponent> components = new ArrayList<>();
 	
-	public MTContainer(Point2 pos, Point2 size)  {
-		this.position = pos;
+	public MTContainer(Point2 size)  {
 		this.size = size;
 	}
 

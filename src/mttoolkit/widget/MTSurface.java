@@ -26,7 +26,7 @@ public class MTSurface extends JPanel {
 	public MTSurface() {
 		super();
 		this.mtedt = new MTEdt(this);
-		this.container = new MTContainer();
+		this.container = new MTContainer(new Point2(0, 0), new Point2(getWidth(), getHeight()));
 		this.componentMap = new ComponentMap();
 	}
 	

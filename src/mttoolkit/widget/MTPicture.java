@@ -1,5 +1,7 @@
 package mttoolkit.widget;
 
+import mttoolkit.mygeom.Point2;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -13,30 +15,33 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class MTPicture extends MTComponent {
 
-	private Image img;
-	
-	public Rectangle bounds;
+    private Point2 position;
 
-	public MTPicture(String imgPath) {
-		try {
-			img = ImageIO.read(new File(imgPath));
-			bounds = new Rectangle(0, 0, img.getWidth(null), img.getHeight(null));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    private Point2 size;
 
-	@Override
-	public boolean isInside(Point p) {
-		return false;
-	}
+    private Image img;
 
-	@Override
-	public void draw(Graphics2D g) {
-		g.drawImage(img, bounds.x - (bounds.width / 2), bounds.y - (bounds.height / 2), bounds.width, bounds.height,
-				null);
-		g.setColor(Color.DARK_GRAY);
-		g.drawRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, 10, 10);
-	}
+    public MTPicture(Point2 position, Point2 size, String imgPath) {
+        this.position = position;
+        this.size = size;
+        try {
+            img = ImageIO.read(new File(imgPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isInside(Point2 p) {
+        return false;
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        g.drawImage(img, (int) (position.getX() - (size.getX() / 2)), (int) (position.getY() - (size.getY() / 2)), (int) size.getX(), (int) size.getY(),
+                null);
+        g.setColor(Color.DARK_GRAY);
+        g.drawRoundRect((int) position.getX(), (int) position.getY(), (int) size.getX(), (int) size.getY(), 10, 10);
+    }
 
 }

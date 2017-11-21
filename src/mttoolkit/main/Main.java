@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
-import mttoolkit.*;
 import mttoolkit.widget.MTSurface;
 
 public class Main {
@@ -30,7 +29,7 @@ public class Main {
 		/*surface.addChangedSideListener(new ChangedSideListener() {
 			@Override
 			public void changedSidePerformed(ChangedSideEvent evt) {
-				System.out.println("curseur d'id: " + evt.getID() + " est à " + (evt.getSide()));
+				System.out.println("curseur d'id: " + evt.getID() + " est ï¿½ " + (evt.getSide()));
 			}
 		});*/
 
