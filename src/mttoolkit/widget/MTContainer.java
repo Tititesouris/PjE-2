@@ -30,7 +30,12 @@ public class MTContainer extends MTComponent {
 
 	@Override
 	public boolean isInside(Point2 p) {
-		return false;
+        for (MTComponent mtComponent : components) {
+            if (mtComponent.isInside(p)){
+                return true;
+            }
+        }
+        return false;
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class MTPicture extends MTComponent {
 
     @Override
     public boolean isInside(Point2 p) {
-        return false;
+        return position.getX() <= p.getX() && p.getX() <= position.getX() + size.getX() && position.getY() <= p.getY() && p.getY() <= position.getY() + size.getY();
     }
 
     @Override
