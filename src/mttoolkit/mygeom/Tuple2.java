@@ -27,10 +27,22 @@ public class Tuple2 {
         return this;
     }
 
+    public Tuple2 sum(Tuple2 a) {
+        return new Tuple2(x + a.x, y + a.y);
+    }
+
     public Tuple2 sub(Tuple2 a) {
         x -= a.x;
         y -= a.y;
         return this;
+    }
+
+    public Tuple2 diff(Tuple2 a) {
+        return new Tuple2(a.x - x, a.y - y);
+    }
+
+    public Tuple2 times(double a) {
+        return new Tuple2(x * a, y * a);
     }
 
     public Tuple2 add(Tuple2 a, Tuple2 b) {
@@ -74,6 +86,14 @@ public class Tuple2 {
 
     public void setY(double yy) {
         y = yy;
+    }
+
+    public double getEuclidianDistance() {
+        return Math.sqrt((x * x) + (y * y));
+    }
+
+    public Point2 getNormalized() {
+        return new Point2(x / getEuclidianDistance(), y / getEuclidianDistance());
     }
 
     /// @brief compatibilit� avec cout (affiche les coordonn�es).
