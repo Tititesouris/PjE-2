@@ -3,6 +3,7 @@ package mttoolkit.widget;
 import java.util.HashMap;
 import java.util.Map;
 
+import mttoolkit.event.DiscreteEvent;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.tuio.GestureAnalyzer;
 
@@ -18,6 +19,7 @@ public class ComponentMap {
         }
 		cMap.get(component).addBlob(id, p);
 		analyzer.analyse(component, cMap.get(component), "add", id, p);
+		component.fireDiscretePerformed(new DiscreteEvent("Blob added !"));
 	}
 
 	public void updateBlob(int id, Point2 p) {

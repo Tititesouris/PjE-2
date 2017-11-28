@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 
 import mttoolkit.event.DiscreteEvent;
 import mttoolkit.event.DiscreteEventListener;
+import mttoolkit.event.SRTEvent;
+import mttoolkit.event.SRTEventListener;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.widget.MTPicture;
 import mttoolkit.widget.MTSurface;
