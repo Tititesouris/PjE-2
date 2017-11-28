@@ -20,6 +20,8 @@ public abstract class MTComponent extends JComponent {
     private EventListenerList listeners = new EventListenerList();
     
     protected OBB obb = new OBB();
+    
+    public InternalGestureState gestureState = new InternalGestureState(this);
 
     public abstract boolean isInside(Point2 p);
 

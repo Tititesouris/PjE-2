@@ -43,7 +43,7 @@ public class MTPicture extends MTComponent {
 		addSRTEventListener(new SRTEventListener() {
 			@Override
 			public void gesturePerformed(SRTEvent event) {
-				// Do move
+				((MTPicture) event.getSource()).updatePosition(event.getTransform(), event.getRotation(), event.getScale());
 			}
 		});
 	}

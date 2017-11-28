@@ -59,7 +59,7 @@ public class MTContainer extends MTComponent {
     		AffineTransform save = g.getTransform();
     		OBB compoObb = components.get(i).obb;
         	
-        	g.translate(compoObb.getOrigin().getX(), compoObb.getOrigin().getX());
+        	g.translate(compoObb.getOrigin().getX(), compoObb.getOrigin().getY());
         	g.rotate(compoObb.getAngle());
         	
     		components.get(i).draw(g);

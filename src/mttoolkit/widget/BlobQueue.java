@@ -26,6 +26,10 @@ public class BlobQueue {
     public boolean checkID(int id) {
         return cursor.containsKey(id);
     }
+    
+    public int length() {
+    	return cursor.size();
+    }
 
     public void draw(Graphics2D g2, boolean cursorsVisible) {
         for (Path p : cursor.values()) {
