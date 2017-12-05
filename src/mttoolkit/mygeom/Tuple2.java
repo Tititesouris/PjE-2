@@ -1,4 +1,4 @@
-package mttoolkit.mygeom;
+	package mttoolkit.mygeom;
 
 
 public class Tuple2 {
@@ -92,8 +92,8 @@ public class Tuple2 {
         return Math.sqrt((x * x) + (y * y));
     }
 
-    public Point2 getNormalized() {
-        return new Point2(x / getEuclidianDistance(), y / getEuclidianDistance());
+    public Tuple2 getNormalized() {
+        return new Tuple2(x / getEuclidianDistance(), y / getEuclidianDistance());
     }
 
     /// @brief compatibilit� avec cout (affiche les coordonn�es).

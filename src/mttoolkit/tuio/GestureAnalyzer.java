@@ -31,7 +31,7 @@ public class GestureAnalyzer {
 		if (b.length() == 1) {
 			c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
 		} else if (b.length() == 2) {
-			//c.gestureState.motionTRSBegin(new Vector2(p.getX(), p.getY()), new Vector2(b.));
+			c.gestureState.motionTRSBegin(new Vector2(p.getX(), p.getY()));
 		}
 
 		c.fireDiscretePerformed(new DiscreteEvent(c));
@@ -42,6 +42,10 @@ public class GestureAnalyzer {
 			c.gestureState.motionTranslateUpdate(new Vector2(p.getX(), p.getY()));
 			Vector2 translate = c.gestureState.computeTranslation();
 			c.fireSRTPerformed(new SRTEvent(c, translate, 0.0, 1.0));
+		} else if (b.length() == 2) {
+			c.gestureState.motionTRSUpdate(new Vector2(p.getX(), p.getY()));
+			double scale = c.gestureState.computeTRSScale();
+			c.fireSRTPerformed(new SRTEvent(c, new Vector2(), 0.0, scale));
 		}
 	}
 
