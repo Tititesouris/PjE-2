@@ -1,5 +1,6 @@
 package mttoolkit.widget;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.EventObject;
@@ -15,76 +16,79 @@ import mttoolkit.mygeom.Vector2;
 @SuppressWarnings("serial")
 public abstract class MTComponent extends JComponent {
 
-    private MTContainer container;
+	private MTContainer container;
 
-    private EventListenerList listeners = new EventListenerList();
-    
-    protected OBB obb = new OBB();
-    
-    public InternalGestureState gestureState = new InternalGestureState(this);
+	private EventListenerList listeners = new EventListenerList();
 
-    public abstract boolean isInside(Point2 p);
+	protected OBB obb = new OBB();
 
-    public abstract void draw(Graphics2D g);
+	public InternalGestureState gestureState = new InternalGestureState(this);
 
-    public void click() {
-        container.select(this);
-    }
-    
-    public void setPosition(Vector2 origin, double angle, double height, double width) {
-    	obb.setAngle(angle);
-    	obb.setOrigin(origin);
-    	obb.setHeight(height);
-    	obb.setWidth(width);
-    }
-    
-    public void updatePosition(Vector2 t, double angle, double k) {
-    	obb.getOrigin().add(t);
-    	obb.setAngle(obb.getAngle() + angle);
-    	obb.setHeight(obb.getHeight() * k);
-    	obb.setWidth(obb.getWidth() * k);
-    }
+	public abstract boolean isInside(Point2 p);
 
-    public void addDiscreteEventListener(DiscreteEventListener l) {
-        listeners.add(DiscreteEventListener.class, l);
-    }
+	public abstract void draw(Graphics2D g);
 
-    public void addSRTEventListener(SRTEventListener l) {
-        listeners.add(SRTEventListener.class, l);
-    }
+	public void click() {
+		container.select(this);
+	}
 
-    public void addGestureEventListener(GestureEventListener l) {
-        listeners.add(GestureEventListener.class, l);
-    }
+	public void setPosition(Vector2 origin, double angle, double height, double width) {
+		obb.setAngle(angle);
+		obb.setOrigin(origin);
+		obb.setHeight(height);
+		obb.setWidth(width);
+	}
 
-    public void fireDiscretePerformed(EventObject object) {
-        Object[] listenersList = listeners.getListenerList();
-        for (int i = listenersList.length - 2; i >= 0; i -= 2) {
-            if (listenersList[i] == DiscreteEventListener.class) {
-                ((DiscreteEventListener) listenersList[i + 1]).gesturePerformed((DiscreteEvent) object);
-            }
-        }
-    }
+	public void updatePosition(Vector2 t, double angle, double k) {
+		/*t.setX(t.getX() / (surfaceDimension.getHeight() / 5));
+		t.setY(t.getY() / (surfaceDimension.getWidth() / 5));*/
+		
+		obb.getOrigin().add(t);
+		obb.setAngle(obb.getAngle() + angle);
+		obb.setHeight(obb.getHeight() * k);
+		obb.setWidth(obb.getWidth() * k);
+	}
 
-    public void fireSRTPerformed(EventObject object) {
-        Object[] listenersList = listeners.getListenerList();
-        for (int i = listenersList.length - 2; i >= 0; i -= 2) {
-            if (listenersList[i] == SRTEventListener.class) {
-                ((SRTEventListener) listenersList[i + 1]).gesturePerformed((SRTEvent) object);
-            }
-        }
-    }
+	public void addDiscreteEventListener(DiscreteEventListener l) {
+		listeners.add(DiscreteEventListener.class, l);
+	}
 
-    public void fireGesturePerformed(EventObject object) {
-        Object[] listenersList = listeners.getListenerList();
-        for (int i = listenersList.length - 2; i >= 0; i -= 2) {
-            if (listenersList[i] == GestureEventListener.class) {
-                ((GestureEventListener) listenersList[i + 1]).gesturePerformed((GestureEvent) object);
-            }
-        }
-    }
+	public void addSRTEventListener(SRTEventListener l) {
+		listeners.add(SRTEventListener.class, l);
+	}
 
-    public void setContainer(MTContainer container) {
-        this.container = container;
-    }
+	public void addGestureEventListener(GestureEventListener l) {
+		listeners.add(GestureEventListener.class, l);
+	}
+
+	public void fireDiscretePerformed(EventObject object) {
+		Object[] listenersList = listeners.getListenerList();
+		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
+			if (listenersList[i] == DiscreteEventListener.class) {
+				((DiscreteEventListener) listenersList[i + 1]).gesturePerformed((DiscreteEvent) object);
+			}
+		}
+	}
+
+	public void fireSRTPerformed(EventObject object) {
+		Object[] listenersList = listeners.getListenerList();
+		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
+			if (listenersList[i] == SRTEventListener.class) {
+				((SRTEventListener) listenersList[i + 1]).gesturePerformed((SRTEvent) object);
+			}
+		}
+	}
+
+	public void fireGesturePerformed(EventObject object) {
+		Object[] listenersList = listeners.getListenerList();
+		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
+			if (listenersList[i] == GestureEventListener.class) {
+				((GestureEventListener) listenersList[i + 1]).gesturePerformed((GestureEvent) object);
+			}
+		}
+	}
+
+	public void setContainer(MTContainer container) {
+		this.container = container;
+	}
 }

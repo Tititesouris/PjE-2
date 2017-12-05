@@ -10,6 +10,8 @@ import mttoolkit.widget.BlobQueue;
 import mttoolkit.widget.MTComponent;
 
 public class GestureAnalyzer {
+	
+	private int currentId;
 
 	public void analyse(MTComponent c, BlobQueue b, String state, int id, Point2 p) {
 		switch (state) {
@@ -29,6 +31,7 @@ public class GestureAnalyzer {
 
 	public void add(MTComponent c, BlobQueue b, Point2 p, int id) {
 		if (b.length() == 1) {
+			currentId = id;
 			c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
 		}
 
@@ -36,17 +39,18 @@ public class GestureAnalyzer {
 	}
 
 	public void update(MTComponent c, BlobQueue b, Point2 p, int id) {
-		if (b.length() == 1) {
+		if (b.length() == 1 && id == currentId) {
 			c.gestureState.motionTranslateUpdate(new Vector2(p.getX(), p.getY()));
+			
+			Vector2 translate = c.gestureState.computeTranslation();
+			c.fireSRTPerformed(new SRTEvent(c, translate, 0.0, 1.0));
 		}
-
-		Vector2 translate = c.gestureState.computeTranslation();
-		c.fireSRTPerformed(new SRTEvent(c, translate, 0.0, 1.0));
 	}
 
 	public void remove(MTComponent c, BlobQueue b, Point2 p, int id) {
 		if (b.length() > 0) {
 			c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
+			currentId = id;
 		}
 	}
 

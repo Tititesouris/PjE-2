@@ -19,44 +19,44 @@ import mttoolkit.widget.MTSurface;
 
 public class Main {
 
-    private static void createGUI() {
-        JFrame frame = new JFrame();
-        frame.setPreferredSize(new Dimension(840, 620));
-        frame.setLayout(new FlowLayout());
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	private static void createGUI() {
+		JFrame frame = new JFrame();
+		frame.setPreferredSize(new Dimension(840, 620));
+		frame.setLayout(new FlowLayout());
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        MTSurface surface = new MTSurface();
-        surface.setPreferredSize(new Dimension(800, 600));
-        surface.setBackground(new Color(255, 255, 255));
-        surface.setBorder(new LineBorder(new Color(0, 0, 0)));
-        MTPicture picture = new MTPicture(new Point2(50, 50),  new Point2(300, 100), "testimg.png");
-        MTPicture picture2 = new MTPicture(new Point2(100, 80),  new Point2(50, 150), "testimg.png");
-        surface.add(picture);
-        surface.add(picture2);
+		MTSurface surface = new MTSurface();
+		surface.setPreferredSize(new Dimension(800, 600));
+		surface.setBackground(new Color(255, 255, 255));
+		surface.setBorder(new LineBorder(new Color(0, 0, 0)));
+		MTPicture picture = new MTPicture(new Point2(50, 50), new Point2(300, 100), "testimg.png");
+		MTPicture picture2 = new MTPicture(new Point2(100, 80), new Point2(50, 150), "testimg.png");
+		surface.add(picture);
+		surface.add(picture2);
 
-        frame.add(surface);
+		frame.add(surface);
 
-        JButton button = new JButton("Display Cursor");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                surface.setCursorsVisible(!surface.areCursorsVisible());
-            }
-        });
+		JButton button = new JButton("Display Cursor");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				surface.setCursorsVisible(!surface.areCursorsVisible());
+			}
+		});
 
-        frame.add(button);
+		frame.add(button);
 
-        frame.pack();
-        frame.setVisible(true);
-    }
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-    public static void main(String args[]) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                createGUI();
-            }
-        });
-        System.out.println("ok");
-    }
+	public static void main(String args[]) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				createGUI();
+			}
+		});
+		System.out.println("ok");
+	}
 
 }

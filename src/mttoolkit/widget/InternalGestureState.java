@@ -1,5 +1,7 @@
 package mttoolkit.widget;
 
+import java.awt.Dimension;
+
 import mttoolkit.mygeom.OBB;
 import mttoolkit.mygeom.Vector2;
 
@@ -31,9 +33,9 @@ public class InternalGestureState {
 	}
 	
 	public Vector2 computeTranslation() {
-		Vector2 tmp = currentPos;
-		tmp.sub(oldPos);
-		
+		Vector2 tmp = new Vector2();
+		tmp.set(oldPos, currentPos);
+				
 		return tmp;
 	}
 }
