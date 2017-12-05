@@ -26,6 +26,10 @@ public class Path {
     public Point2 get(int index) {
         return pathList.get(index);
     }
+    
+    public Point2 getLast() {
+    	return pathList.get(pathList.size());
+    }
 
     public void add(Point2 p) {
         pathList.add(p);

@@ -36,9 +36,9 @@ public class ComponentMap {
 	public void removeBlob(int id, Point2 p) {
 		for (MTComponent c : cMap.keySet()) {
 			if (cMap.get(c).checkID(id)) {
-				cMap.get(c).removeBlob(id);
-
 				analyzer.analyse(c, cMap.get(c), "remove", id, p);
+				
+				cMap.get(c).removeBlob(id);
 				break;
 			}
 		}

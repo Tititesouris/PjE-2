@@ -10,6 +10,10 @@ import mttoolkit.mygeom.Point2;
 public class BlobQueue {
 
     private Map<Integer, Path> cursor = new HashMap<>();
+    
+    public Path getBlob(Integer id) {
+    	return cursor.get(id);
+    }
 
     public void addBlob(int id, Point2 p) {
         cursor.put(id, new Path(id, p));

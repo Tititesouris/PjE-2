@@ -6,7 +6,7 @@ public class Vector2 extends Tuple2 {
         super();
     }
 
-    public Vector2(Vector2 a) {
+    public Vector2(Tuple2 a) {
         super(a);
     }
 
