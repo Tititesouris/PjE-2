@@ -8,7 +8,9 @@ import javax.swing.JComponent;
 import javax.swing.event.EventListenerList;
 
 import mttoolkit.event.*;
+import mttoolkit.mygeom.OBB;
 import mttoolkit.mygeom.Point2;
+import mttoolkit.mygeom.Vector2;
 
 @SuppressWarnings("serial")
 public abstract class MTComponent extends JComponent {
@@ -16,6 +18,10 @@ public abstract class MTComponent extends JComponent {
     private MTContainer container;
 
     private EventListenerList listeners = new EventListenerList();
+    
+    protected OBB obb = new OBB();
+    
+    public InternalGestureState gestureState = new InternalGestureState(this);
 
     public abstract boolean isInside(Point2 p);
 
@@ -23,6 +29,20 @@ public abstract class MTComponent extends JComponent {
 
     public void click() {
         container.select(this);
+    }
+    
+    public void setPosition(Vector2 origin, double angle, double height, double width) {
+    	obb.setAngle(angle);
+    	obb.setOrigin(origin);
+    	obb.setHeight(height);
+    	obb.setWidth(width);
+    }
+    
+    public void updatePosition(Vector2 t, double angle, double k) {
+    	obb.getOrigin().add(t);
+    	obb.setAngle(obb.getAngle() + angle);
+    	obb.setHeight(obb.getHeight() * k);
+    	obb.setWidth(obb.getWidth() * k);
     }
 
     public void addDiscreteEventListener(DiscreteEventListener l) {
