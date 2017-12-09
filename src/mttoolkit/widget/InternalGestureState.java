@@ -8,22 +8,22 @@ import mttoolkit.mygeom.Vector2;
 public class InternalGestureState {
 	// position d'une OBB
 	OBB oldOBB, currentOBB;
-	// états du curseur pour la translation simple
+	// ï¿½tats du curseur pour la translation simple
 	Vector2 oldPos_A, oldPos_B, currentPos_A, currentPos_B;
 
 	public InternalGestureState(MTComponent c) {
-		// le currentOBB sera une référence sur l'OBB de c
-		// donc : lorsque currentOBB est modifié, cela modifie l'OBB de c (pas
+		// le currentOBB sera une rï¿½fï¿½rence sur l'OBB de c
+		// donc : lorsque currentOBB est modifiï¿½, cela modifie l'OBB de c (pas
 		// de new pour currentOBB !!!!!)
 
-		oldPos_A = new Vector2(); // pour mémoriser la position précédente du
+		oldPos_A = new Vector2(); // pour mï¿½moriser la position prï¿½cï¿½dente du
 		oldPos_B = new Vector2(); // curseur
 
 		currentPos_A = new Vector2();
 		currentPos_B = new Vector2();
 
-		oldOBB = new OBB(); // pour mémoriser la position précédente, si besoin
-		currentOBB = c.obb; // référence sur l'obb du composant
+		oldOBB = new OBB(); // pour mï¿½moriser la position prï¿½cï¿½dente, si besoin
+		currentOBB = c.obb; // rï¿½fï¿½rence sur l'obb du composant
 	}
 
 	public void motionTranslateBegin(Vector2 cursor) {
@@ -43,26 +43,31 @@ public class InternalGestureState {
 
 	public void motionTRSBegin(Vector2 cursor) {
 		currentPos_B = cursor;
+		oldPos_B = cursor;
 	}
 
 	public void motionTRSUpdate(Vector2 cursor) {
-		oldPos_B = currentPos_B;
 		currentPos_B = cursor;
 	}
 
 	public double computeTRSScale() {
-		return currentPos_B.getEuclidianDistance() - oldPos_B.getEuclidianDistance();
+	    double a = currentPos_A.getEuclidianDistance() - oldPos_B.getEuclidianDistance();
+        double b = currentPos_A.getEuclidianDistance() - currentPos_B.getEuclidianDistance();
+
+		return (a - b) * 0.01 + 1;
 	}
 
 	public double computeTRSRotation() {
-		Vector2 tmpOldPos = (Vector2) oldPos_B.getNormalized();
-		Vector2 tmpCurrentPos = (Vector2) currentPos_B.getNormalized();
+		Vector2 tmpOldPos = new Vector2(oldPos_B.getNormalized());
+		Vector2 tmpCurrentPos = new Vector2(currentPos_B.getNormalized());
 
 		double value = Math.acos((tmpOldPos.getX() * tmpCurrentPos.getX() + tmpOldPos.getY() * tmpCurrentPos.getY()));
 
 		if ((tmpOldPos.getX() * tmpCurrentPos.getY() - tmpOldPos.getY() * tmpCurrentPos.getX()) > 0) {
-			return value;
+            System.out.println("1");
+            return value;
 		} else {
+		    System.out.println("-1");
 			return -value;
 		}
 	}

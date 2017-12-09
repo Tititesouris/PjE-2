@@ -40,9 +40,6 @@ public abstract class MTComponent extends JComponent {
 	}
 
 	public void updatePosition(Vector2 t, double angle, double k) {
-		/*t.setX(t.getX() / (surfaceDimension.getHeight() / 5));
-		t.setY(t.getY() / (surfaceDimension.getWidth() / 5));*/
-		
 		obb.getOrigin().add(t);
 		obb.setAngle(obb.getAngle() + angle);
 		obb.setHeight(obb.getHeight() * k);

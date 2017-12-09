@@ -45,7 +45,8 @@ public class GestureAnalyzer {
 		} else if (b.length() == 2) {
 			c.gestureState.motionTRSUpdate(new Vector2(p.getX(), p.getY()));
 			double scale = c.gestureState.computeTRSScale();
-			c.fireSRTPerformed(new SRTEvent(c, new Vector2(), 0.0, scale));
+			double rotation = c.gestureState.computeTRSRotation();
+			c.fireSRTPerformed(new SRTEvent(c, new Vector2(), rotation, scale));
 		}
 	}
 
