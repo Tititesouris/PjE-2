@@ -11,7 +11,7 @@ public class Path {
 
     private int id;
 
-    private List<Point2> pathList;
+    private List<Tuple2> pathList;
 
     public Path(int id) {
         this.id = id;
@@ -23,12 +23,8 @@ public class Path {
         pathList.add(p);
     }
 
-    public Point2 get(int index) {
+    public Tuple2 get(int index) {
         return pathList.get(index);
-    }
-    
-    public Point2 getLast() {
-    	return pathList.get(pathList.size());
     }
 
     public void add(Point2 p) {
@@ -46,7 +42,7 @@ public class Path {
     public Point2 isobarycentre() {
         Point2 p = new Point2();
 
-        for (Point2 point2 : pathList) {
+        for (Tuple2 point2 : pathList) {
             p.setX(p.getX() + point2.getX());
             p.setY(p.getY() + point2.getY());
         }
@@ -55,6 +51,10 @@ public class Path {
         p.setY(p.getY() / pathList.size());
 
         return p;
+    }
+
+    public List<Tuple2> getPoints() {
+        return pathList;
     }
 
     public void draw(Graphics2D g, boolean showCursor) {

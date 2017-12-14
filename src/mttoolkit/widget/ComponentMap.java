@@ -5,7 +5,7 @@ import java.util.Map;
 
 import mttoolkit.event.DiscreteEvent;
 import mttoolkit.mygeom.Point2;
-import mttoolkit.tuio.GestureAnalyzer;
+import mttoolkit.recognizer.GestureAnalyzer;
 
 public class ComponentMap {
 	

@@ -35,11 +35,18 @@ public class BlobQueue {
     	return cursor.size();
     }
 
+    public Path getLastPath() {
+        Path path = null;
+        for (Path p : cursor.values()) {
+            path = p;
+        }
+        return path;
+    }
+
     public void draw(Graphics2D g2, boolean cursorsVisible) {
         for (Path p : cursor.values()) {
             p.draw(g2, cursorsVisible);
         }
-
     }
 
 }

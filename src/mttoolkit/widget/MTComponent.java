@@ -1,8 +1,6 @@
 package mttoolkit.widget;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.util.EventObject;
 
 import javax.swing.JComponent;
@@ -11,6 +9,7 @@ import javax.swing.event.EventListenerList;
 import mttoolkit.event.*;
 import mttoolkit.mygeom.OBB;
 import mttoolkit.mygeom.Point2;
+import mttoolkit.mygeom.Tuple2;
 import mttoolkit.mygeom.Vector2;
 
 @SuppressWarnings("serial")
@@ -32,14 +31,14 @@ public abstract class MTComponent extends JComponent {
 		container.select(this);
 	}
 
-	public void setPosition(Vector2 origin, double angle, double height, double width) {
+	public void setPosition(Tuple2 origin, double angle, double height, double width) {
 		obb.setAngle(angle);
 		obb.setOrigin(origin);
 		obb.setHeight(height);
 		obb.setWidth(width);
 	}
 
-	public void updatePosition(Vector2 t, double angle, double k) {
+	public void updatePosition(Tuple2 t, double angle, double k) {
 		obb.getOrigin().add(t);
 		obb.setAngle(obb.getAngle() + angle);
 		obb.setHeight(obb.getHeight() * k);

@@ -2,48 +2,49 @@ package mttoolkit.mygeom;
 
 public class OBB {
 
-	private Vector2 origin;
-	private double angle;
-	private double width, height;
-	
-	public OBB() {
-		origin = new Vector2();
-		angle = 0.0;
-		width = 0.0;
-		height = 0.0;
-	}
-	
-	public Vector2 getOrigin() {
-		return origin;
-	}
+    private Tuple2 origin;
 
-	public void setOrigin(Vector2 origin) {
-		this.origin = origin;
-	}
+    private double angle;
 
-	public double getAngle() {
-		return angle;
-	}
+    private double width, height;
 
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
+    public OBB() {
+        origin = new Tuple2();
+        angle = 0.0;
+        width = 0.0;
+        height = 0.0;
+    }
 
-	public double getWidth() {
-		return width;
-	}
+    public Tuple2 getOrigin() {
+        return origin;
+    }
 
-	public void setWidth(double width) {
-		this.width = width;
-	}
+    public void setOrigin(Tuple2 origin) {
+        this.origin = origin;
+    }
 
-	public double getHeight() {
-		return height;
-	}
+    public double getAngle() {
+        return angle;
+    }
 
-	public void setHeight(double height) {
-		this.height = height;
-	}
-	
-	
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
 }
