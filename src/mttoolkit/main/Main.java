@@ -29,8 +29,8 @@ public class Main {
 		surface.setPreferredSize(new Dimension(800, 600));
 		surface.setBackground(new Color(255, 255, 255));
 		surface.setBorder(new LineBorder(new Color(0, 0, 0)));
-		MTPicture picture = new MTPicture(new Point2(50, 50), new Point2(300, 100), "testimg.png");
-		MTPicture picture2 = new MTPicture(new Point2(100, 80), new Point2(50, 150), "testimg.png");
+		MTPicture picture = new MTPicture(new Point2(50, 50), new Point2(300, 100), "data/Bird.jpg");
+		MTPicture picture2 = new MTPicture(new Point2(100, 80), new Point2(50, 150), "data/Thunder.jpg");
 		surface.add(picture);
 		surface.add(picture2);
 

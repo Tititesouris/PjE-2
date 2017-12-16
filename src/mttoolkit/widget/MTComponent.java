@@ -53,10 +53,6 @@ public abstract class MTComponent extends JComponent {
 		listeners.add(SRTEventListener.class, l);
 	}
 
-	public void addGestureEventListener(GestureEventListener l) {
-		listeners.add(GestureEventListener.class, l);
-	}
-
 	public void fireDiscretePerformed(EventObject object) {
 		Object[] listenersList = listeners.getListenerList();
 		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
@@ -71,15 +67,6 @@ public abstract class MTComponent extends JComponent {
 		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
 			if (listenersList[i] == SRTEventListener.class) {
 				((SRTEventListener) listenersList[i + 1]).gesturePerformed((SRTEvent) object);
-			}
-		}
-	}
-
-	public void fireGesturePerformed(EventObject object) {
-		Object[] listenersList = listeners.getListenerList();
-		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
-			if (listenersList[i] == GestureEventListener.class) {
-				((GestureEventListener) listenersList[i + 1]).gesturePerformed((GestureEvent) object);
 			}
 		}
 	}

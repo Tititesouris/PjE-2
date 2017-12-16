@@ -13,7 +13,6 @@ public class GestureAnalyzer {
     private int cursorAID, cursorBID;
     private Point2 pA;
     private Point2 pB;
-    private Dollar1Recognizer recognizer = new Dollar1Recognizer();
 
     public void analyse(MTComponent c, BlobQueue b, String state, int id, Point2 p) {
         switch (state) {
@@ -67,9 +66,7 @@ public class GestureAnalyzer {
     }
 
     private void remove(MTComponent c, BlobQueue b, Point2 p, int id) {
-        c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
-        c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
-        c.fireGesturePerformed(recognizer.recognize(b.getLastPath().getPoints()));
+        c.gestureState.motionTranslateBegin(p);
     }
 
 }
