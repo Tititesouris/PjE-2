@@ -45,7 +45,6 @@ public class MTPicture extends MTComponent {
         addGestureEventListener(new GestureEventListener() {
             @Override
             public void gesturePerformed(GestureEvent event) {
-                System.out.println(event);
                 if ("delete".equals(event.getTemplate().getName())) {
                     System.out.println("TODO DELETE"); // TODO
                 }

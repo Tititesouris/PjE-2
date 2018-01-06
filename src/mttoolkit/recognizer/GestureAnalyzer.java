@@ -54,8 +54,7 @@ public class GestureAnalyzer {
             if (id == cursorAID) {
                 c.gestureState.motionTRSUpdate(p, pB);
                 pA = p;
-            }
-            else if (id == cursorBID) {
+            } else if (id == cursorBID) {
                 c.gestureState.motionTRSUpdate(pA, p);
                 pB = p;
             }
@@ -69,7 +68,9 @@ public class GestureAnalyzer {
     private void remove(MTComponent c, BlobQueue b, Point2 p, int id) {
         c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
         c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
-        c.fireGesturePerformed(recognizer.recognize(b.getLastPath().getPoints()));
+        if (b.length() == 3) {
+            c.fireGesturePerformed(recognizer.recognize(b.getLastPath().getPoints()));
+        }
     }
 
 }

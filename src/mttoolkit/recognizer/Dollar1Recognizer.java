@@ -10,22 +10,30 @@ import java.util.Vector;
 
 public class Dollar1Recognizer {
 
+    int size = 200;
+
+    int sample = 64;
+
     private List<Template> templates = new ArrayList<>();
 
     public Dollar1Recognizer() {
         TemplateManager templateManager = new TemplateManager("./data/gestures.xml");
         for (Template template : templateManager.getTemplates()) {
             List<Tuple2> points = template.getPoints();
-            points = resample(points, pathDistance(points));
+            points = resample(points, sample);
             points = rotateToZero(points);
-            points = scaleToSquare(points, 200);
+            points = scaleToSquare(points, size);
             points = translateToOrigin(points);
             templates.add(new Template(template.getName(), new Vector<>(points))); // Error list cannot be cast to vector
         }
     }
 
-    public GestureEvent recognize(final List<Tuple2> points) {
+    public GestureEvent recognize(List<Tuple2> points) {
         Template t = null;
+        points = resample(points, sample);
+        points = rotateToZero(points);
+        points = scaleToSquare(points, size);
+        points = translateToOrigin(points);
         double match = Double.MAX_VALUE;
         for (Template template : templates) {
             double distance = distanceAtBestAngle(points, template, -45, 45, 2);
@@ -34,7 +42,7 @@ public class Dollar1Recognizer {
                 t = template;
             }
         }
-        double score = 1 - (match / 0.5 * Math.sqrt(points.size() * points.size() * 2));
+        double score = 1 - (match / (0.5 * Math.sqrt(size * size * 2)));
 
         return new GestureEvent(t, score);
     }
@@ -64,22 +72,17 @@ public class Dollar1Recognizer {
     }
 
     private double distanceAtAngle(List<Tuple2> points, Template template, double angle) {
-        return pathDistance(rotateBy(points, angle));
+        return pathDistance(rotateBy(points, angle), template);
     }
 
-    private double pathDistance(List<Tuple2> points) {
-        return getPathLength(points) / points.size();
-    }
-
-    private double getPathLength(List<Tuple2> points) {
+    private double pathDistance(List<Tuple2> points, Template t) {
         double distance = 0;
-        Tuple2 lastPoint = points.get(0);
-        for (Tuple2 point : points) {
-            distance += lastPoint.diff(point).getEuclidianDistance();
-            lastPoint = point;
+        for (int i = 0; i < Math.min(points.size(), t.getPoints().size()); i++) {
+            distance += t.getPoints().get(i).diff(points.get(i)).getEuclidianDistance();
         }
-        return distance;
+        return distance / points.size();
     }
+
 
     private Tuple2 isobarycentre(List<Tuple2> points) {
         Tuple2 p = new Tuple2();
@@ -126,7 +129,7 @@ public class Dollar1Recognizer {
         List<Tuple2> newPoints = new ArrayList<>();
         Tuple2 box = getBox(points);
         for (Tuple2 point : points) {
-            newPoints.add(new Tuple2(point.getX() * size / box.getX(), point.getY() * size / box.getY()));
+            newPoints.add(new Tuple2(point.getX() * (size / box.getX()), point.getY() * (size / box.getY())));
         }
         return newPoints;
     }
@@ -149,7 +152,48 @@ public class Dollar1Recognizer {
         return new Tuple2(maxX - minX, maxY - minY);
     }
 
-    private List<Tuple2> resample(final List<Tuple2> points, double step) {
+    private double getPathStep(List<Tuple2> points) {
+        double distance = 0;
+        Tuple2 lastPoint = points.get(0);
+        for (Tuple2 point : points) {
+            distance += lastPoint.diff(point).getEuclidianDistance();
+            lastPoint = point;
+        }
+        return distance;
+    }
+
+    private List<Tuple2> resample(final List<Tuple2> points, int nbSteps) {
+        double step = getPathStep(points) / (nbSteps - 1);
+        double D = 0;
+        List<Tuple2> newPoints = new ArrayList<>();
+        newPoints.add(points.get(0));
+        Tuple2 lastPoint = points.get(0);
+        int i = 1;
+        System.out.println(points.size());
+        while (i < points.size()) {
+            Tuple2 point = points.get(i);
+            Tuple2 vector = lastPoint.diff(point);
+            double d = vector.getEuclidianDistance();
+            if (D + d >= step) {
+                Tuple2 newPoint = lastPoint.sum(vector.times((step - D) / d));
+                newPoints.add(newPoint);
+                lastPoint = newPoint;
+                //points.add(i+1, newPoint);
+                D = 0;
+            } else {
+                D += d;
+            }
+            lastPoint = point;
+            i++;
+        }
+
+        System.out.println("new   " + newPoints.size());
+        return newPoints;
+    }
+
+    private List<Tuple2> resample2(final List<Tuple2> points, int nbSteps) {
+        System.out.println(nbSteps + "     " + points.size());
+        double step = getPathStep(points) / (nbSteps - 1);
         double distance = 0;
         List<Tuple2> newPoints = new ArrayList<>();
         newPoints.add(points.get(0));
@@ -157,15 +201,18 @@ public class Dollar1Recognizer {
         Tuple2 refPoint = newPoints.get(0);
         for (Tuple2 point : points.subList(1, points.size())) {
             Tuple2 diff = refPoint.diff(point);
-            if (distance + diff.getEuclidianDistance() >= step) {
-                refPoint = refPoint.sum(diff.getNormalized().times(step - distance));
-                newPoints.add(refPoint);
+            double d = diff.getEuclidianDistance();
+            if (distance + d >= step) {
+                Tuple2 newPoint = refPoint.sum(point.diff(refPoint).times((step - distance) / d));
+                newPoints.add(newPoint);
                 distance = 0;
+                refPoint = newPoint;
             } else {
-                distance += diff.getEuclidianDistance();
+                distance += d;
                 refPoint = point;
             }
         }
+        System.out.println("new   " + newPoints.size());
         return newPoints;
     }
 
