@@ -1,12 +1,16 @@
 package mttoolkit.recognizer;
 
 import mttoolkit.event.DiscreteEvent;
+import mttoolkit.event.GestureEvent;
+import mttoolkit.event.GestureInProgressEvent;
 import mttoolkit.event.SRTEvent;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.mygeom.Tuple2;
 import mttoolkit.mygeom.Vector2;
 import mttoolkit.widget.BlobQueue;
 import mttoolkit.widget.MTComponent;
+
+import java.util.ArrayList;
 
 public class GestureAnalyzer {
 
@@ -40,6 +44,8 @@ public class GestureAnalyzer {
             cursorBID = id;
             pB = p;
             c.gestureState.motionTRSBegin(pA, p);
+        } else if (b.length() == 3) {
+            c.fireGestureInProgress(new GestureInProgressEvent(b.getLastPath().getPoints()));
         }
 
         c.fireDiscretePerformed(new DiscreteEvent(c));
@@ -62,6 +68,8 @@ public class GestureAnalyzer {
             double rotation = c.gestureState.computeTRSRotation();
             double scale = c.gestureState.computeTRSScale();
             c.fireSRTPerformed(new SRTEvent(c, translation, rotation, scale));
+        } else if (b.length() == 3) {
+            c.fireGestureInProgress(new GestureInProgressEvent(b.getLastPath().getPoints()));
         }
     }
 
@@ -69,7 +77,9 @@ public class GestureAnalyzer {
         c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
         c.gestureState.motionTranslateBegin(new Vector2(p.getX(), p.getY()));
         if (b.length() == 3) {
-            c.fireGesturePerformed(recognizer.recognize(b.getLastPath().getPoints()));
+            GestureEvent gesture = recognizer.recognize(b.getLastPath().getPoints());
+            System.out.println(gesture.getTemplate().getName());
+            c.fireGesturePerformed(gesture);
         }
     }
 

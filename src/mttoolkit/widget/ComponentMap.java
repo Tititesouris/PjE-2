@@ -1,5 +1,6 @@
 package mttoolkit.widget;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class ComponentMap {
 	private GestureAnalyzer analyzer = new GestureAnalyzer();
 
 	public void addBlob(MTComponent component, int id, Point2 p) {
-	    if (!cMap.containsKey(component)) {
+        if (!cMap.containsKey(component)) {
 	        cMap.put(component, new BlobQueue());
         }
 		cMap.get(component).addBlob(id, p);

@@ -4,9 +4,7 @@ import mttoolkit.event.*;
 import mttoolkit.mygeom.Point2;
 import mttoolkit.mygeom.Vector2;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,6 +14,8 @@ import javax.imageio.ImageIO;
 public class MTPicture extends MTComponent {
 
     private Image img;
+
+    private boolean isGestureHappening = false;
 
     public MTPicture(Point2 position, Point2 size, String imgPath) {
         obb.setOrigin(new Vector2(position.getX(), position.getY()));
@@ -30,7 +30,6 @@ public class MTPicture extends MTComponent {
         addDiscreteEventListener(new DiscreteEventListener() {
             @Override
             public void gesturePerformed(DiscreteEvent event) {
-                System.out.println("CLICKED ON IMAGE " + position.getX());
                 click();
             }
         });
@@ -46,9 +45,18 @@ public class MTPicture extends MTComponent {
             @Override
             public void gesturePerformed(GestureEvent event) {
                 if ("delete".equals(event.getTemplate().getName())) {
-                    System.out.println("TODO DELETE"); // TODO
+                    setVisible(false);
                 }
-                System.out.println(event.getTemplate().getName() + " ::: " + event.getScore());
+                isGestureHappening = false;
+            }
+        });
+
+        addGestureInProgressListener(new GestureInProgressListener() {
+            @Override
+            public void gesturePerformed(GestureInProgressEvent event) {
+                if (isVisualFeedback()) {
+                    isGestureHappening = true;
+                }
             }
         });
     }
@@ -61,9 +69,17 @@ public class MTPicture extends MTComponent {
 
     @Override
     public void draw(Graphics2D g) {
-        g.drawImage(img, 0, 0, (int) obb.getHeight(), (int) obb.getWidth(), null);
-        g.setColor(Color.DARK_GRAY);
-        g.drawRoundRect(0, 0, (int) obb.getHeight(), (int) obb.getWidth(), 10, 10);
+        if (isVisible()) {
+            g.drawImage(img, 0, 0, (int) obb.getHeight(), (int) obb.getWidth(), null);
+            g.setStroke(new BasicStroke(3));
+            if (isGestureHappening) {
+                g.setColor(Color.RED);
+            }
+            else {
+                g.setColor(Color.DARK_GRAY);
+            }
+            g.drawRoundRect(0, 0, (int) obb.getHeight(), (int) obb.getWidth(), 10, 10);
+        }
     }
 
 }

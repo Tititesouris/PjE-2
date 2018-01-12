@@ -2,6 +2,7 @@ package mttoolkit.widget;
 
 import java.awt.Graphics2D;
 import java.util.EventObject;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.event.EventListenerList;
@@ -20,6 +21,8 @@ public abstract class MTComponent extends JComponent {
 	private EventListenerList listeners = new EventListenerList();
 
 	protected OBB obb = new OBB();
+
+	protected boolean visualFeedback = true;
 
 	public InternalGestureState gestureState = new InternalGestureState(this);
 
@@ -57,6 +60,10 @@ public abstract class MTComponent extends JComponent {
 		listeners.add(GestureEventListener.class, l);
 	}
 
+	public void addGestureInProgressListener(GestureInProgressListener l) {
+		listeners.add(GestureInProgressListener.class, l);
+	}
+
 	public void fireDiscretePerformed(EventObject object) {
 		Object[] listenersList = listeners.getListenerList();
 		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
@@ -75,16 +82,33 @@ public abstract class MTComponent extends JComponent {
 		}
 	}
 
-	public void fireGesturePerformed(EventObject object) {
-		Object[] listenersList = listeners.getListenerList();
-		for (int i = listenersList.length - 2; i >= 0; i -= 2) {
-			if (listenersList[i] == GestureEventListener.class) {
-				((GestureEventListener) listenersList[i + 1]).gesturePerformed((GestureEvent) object);
-			}
-		}
-	}
+    public void fireGestureInProgress(EventObject object) {
+        Object[] listenersList = listeners.getListenerList();
+        for (int i = listenersList.length - 2; i >= 0; i -= 2) {
+            if (listenersList[i] == GestureInProgressListener.class) {
+                ((GestureInProgressListener) listenersList[i + 1]).gesturePerformed((GestureInProgressEvent) object);
+            }
+        }
+    }
+
+    public void fireGesturePerformed(EventObject object) {
+        Object[] listenersList = listeners.getListenerList();
+        for (int i = listenersList.length - 2; i >= 0; i -= 2) {
+            if (listenersList[i] == GestureEventListener.class) {
+                ((GestureEventListener) listenersList[i + 1]).gesturePerformed((GestureEvent) object);
+            }
+        }
+    }
 
 	public void setContainer(MTContainer container) {
 		this.container = container;
 	}
+
+    public boolean isVisualFeedback() {
+        return visualFeedback;
+    }
+
+    public void setVisualFeedback(boolean visualFeedback) {
+        this.visualFeedback = visualFeedback;
+    }
 }

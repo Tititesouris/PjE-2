@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import mttoolkit.event.GestureEvent;
+import mttoolkit.event.GestureEventListener;
 import mttoolkit.mygeom.OBB;
 import mttoolkit.mygeom.Point2;
 
@@ -21,6 +23,24 @@ public class MTContainer extends MTComponent {
 
     public MTContainer(Point2 size) {
         this.size = size;
+        initContainer();
+
+        addGestureEventListener(new GestureEventListener() {
+            @Override
+            public void gesturePerformed(GestureEvent event) {
+                if ("circle".equals(event.getTemplate().getName())) {
+                    initContainer();
+                }
+            }
+        });
+    }
+
+    public void initContainer() {
+        components = new ArrayList<>();
+        MTPicture picture = new MTPicture(new Point2(50, 50), new Point2(300, 100), "data/Bird.jpg");
+        MTPicture picture2 = new MTPicture(new Point2(100, 80), new Point2(50, 150), "data/Thunder.jpg");
+        addComponent(picture);
+        addComponent(picture2);
     }
 
     public void addComponent(MTComponent component) {
@@ -34,7 +54,7 @@ public class MTContainer extends MTComponent {
                 return mtComponent;
             }
         }
-        return null;
+        return this;
     }
 
     public void select(MTComponent component) {
