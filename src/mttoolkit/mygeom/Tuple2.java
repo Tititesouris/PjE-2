@@ -20,6 +20,11 @@ public class Tuple2 {
         y = a.y;
     }
 
+    public Tuple2(Segment2 a) {
+        Tuple2 b = a.init.diff(a.end);
+        x = b.x;
+        y = b.y;
+    }
 
     public Tuple2 add(Tuple2 a) {
         x += a.x;
@@ -94,6 +99,14 @@ public class Tuple2 {
 
     public Tuple2 getNormalized() {
         return new Tuple2(x / getEuclidianDistance(), y / getEuclidianDistance());
+    }
+
+    public double dot(Tuple2 a) {
+        return x * a.x + y * a.y;
+    }
+
+    public double det(Tuple2 a) {
+        return x * a.y - y * a.x;
     }
 
     public String toString() {

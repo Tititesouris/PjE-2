@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import mttoolkit.DebugDraw;
 import mttoolkit.event.ChangedSideEvent;
 import mttoolkit.event.ChangedSideListener;
 import mttoolkit.event.Side;
@@ -30,6 +31,7 @@ public class MTSurface extends JPanel {
 		this.mtedt = new MTEdt(this);
 		this.container = new MTContainer(new Point2(getWidth(), getHeight()));
 		this.componentMap = new ComponentMap();
+		DebugDraw.init();
 	}
 
 	public void add(MTComponent component) {
@@ -79,5 +81,6 @@ public class MTSurface extends JPanel {
 			b.draw(g2, cursorsVisible);
 		}
 		container.draw(g2);
+		DebugDraw.draw(g2);
 	}
 }

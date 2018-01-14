@@ -1,7 +1,11 @@
 package mttoolkit.widget;
 
+import mttoolkit.DebugDraw;
+import mttoolkit.InertiaMatrix;
 import mttoolkit.event.*;
+import mttoolkit.mygeom.OBB;
 import mttoolkit.mygeom.Point2;
+import mttoolkit.mygeom.Segment2;
 import mttoolkit.mygeom.Vector2;
 
 import java.awt.*;
